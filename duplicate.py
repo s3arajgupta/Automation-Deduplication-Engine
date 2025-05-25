@@ -22,6 +22,8 @@ def find_duplicate_files(directory, error_file):
         for filename in files:
             file_path = os.path.join(root, filename)
             try:
+                if ".git" in file_path or "build" in file_path or "node_modules" in file_path or ".xml" in file_path:
+                    continue
                 file_size = os.path.getsize(file_path)
                 size_map[file_size].append(file_path)
             except Exception as e:
