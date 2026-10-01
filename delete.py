@@ -1,20 +1,21 @@
-import os
+#!/usr/bin/env python3
+"""
+Legacy entrypoint for file deletion in Duplicate-Folders.
+Delegates to the modern, safe Deduplication Engine clean command.
+"""
 
-def delete_files_from_list(file_list_path):
-    with open(file_list_path, 'r', encoding='utf-8') as f:
-        file_paths = [line.strip() for line in f if line.strip()]
+from __future__ import annotations
 
-    for path in file_paths:
-        try:
-            if os.path.isfile(path):
-                os.remove(path)
-                print(f"Deleted: {path}")
-            else:
-                print(f"Not found or not a file: {path}")
-        except Exception as e:
-            print(f"Error deleting {path}: {e}")
+import sys
+from pathlib import Path
 
-# === Run ===
+# Add src/ to path
+sys.path.insert(0, str(Path(__file__).parent / "src"))
+
+from dedup_engine.cli import app
+
 if __name__ == "__main__":
-    file_list_path = "delete.txt"  # Replace with your file path
-    delete_files_from_list(file_list_path)
+    # If run directly without arguments, show help for clean
+    if len(sys.argv) == 1:
+        sys.argv.extend(["clean", "--help"])
+    app()
