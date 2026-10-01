@@ -1,4 +1,4 @@
-# 🗂️ Deduplication Engine: High-Performance Directory & File Deduplication
+# 🗂️ High-Performance Directory & File Deduplication Engine
 
 <div align="center">
 
